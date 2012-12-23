@@ -1,10 +1,8 @@
 ---
 layout: page
-title: Hello World!
-tagline: First!!1!eleventy
+title: ahpook is here
+tagline: death needs time for what it kills to grow in
 ---
 {% include JB/setup %}
 
-## First post
 
-Here's a silly first post.
