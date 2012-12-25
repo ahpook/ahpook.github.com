@@ -1,0 +1,74 @@
+---
+layout: post
+title: today's rubyism - enumerables
+---
+
+<p>One of the things I quite like about ruby is the number of useful methods you get for free with common data types.</p>
+
+
+
+<p>I discovered a new one today which every class that mixes in <a href="http://www.ruby-doc.org/core-1.8.7/classes/Enumerable.html">Enumerable</a> can use: each_with_index. I was generating lists of IP addresses with the Range type for the last octet and started out using an offset so the server number mapped to the IP address (the servers start at &#8216;001&#8217; but the first available IP was 31):</p>
+
+
+
+<pre><code class="ruby">
+
+r = 31..40
+
+r.each do |i|
+
+    svr = "myserver%03d" % (i - 30)   # printf style syntax for zero-padded hosts
+
+    puts "10.10.20.#{i}\t#{svr}"
+
+end
+
+</code>
+
+10.10.20.31 myserver001
+
+10.10.20.32 myserver002 [ &#8230; ]
+
+</pre>
+
+
+
+<p>But I had to iterate over this several times with different sets of IP ranges, and remembering to subtract the right number from the IP address to end up with the first server at 1 was bringin&#8217; me down.  So I looked at the above-linked docs for the Enumerable class thinking there was probably something clever you could do with the &#8216;each&#8217; method, and sure enough:</p>
+
+
+
+<blockquote>
+
+enum.each_with_index {|obj, i| block } → enum <br/>
+
+  Calls block with two arguments, the item and its index, for each item in enum.
+
+</blockquote>
+
+
+
+<p>So the code became:</p>
+
+
+
+<pre>
+
+<code class="ruby">
+
+r = 31..40
+
+r.each_with_index do |i, x|
+
+    svr = "myserver%03d" % (x + 1)   # indexes start at zero   
+
+    puts "10.10.20.#{i}\t#{svr}"
+
+end
+
+</code>
+
+</pre>
+
+
+
+<p>Just one of the ways ruby makes my life a little better.</p>

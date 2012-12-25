@@ -1,0 +1,14 @@
+---
+layout: post
+title: Tumblr Trick - short urls
+---
+
+<p>I found out how you can grab the short &#8220;http://tumblr.com/sfsfsfsf&#8221; style URL for your tumblr post without auto-posting to Twitter (which is the only place that the URL is exposed in the UI). Turns out it&#8217;s sent along with every request in a &#8220;Link&#8221; header following the <a href="http://wiki.snaplog.com/short_url">Short URL Autodiscovery</a> spec.  To grab it, from Chrome or Safari fire up the Developer console and click &#8220;Enable Resource Tracking&#8221;. Then hit the direct URL for your post and look in the Response Headers section:</p>
+
+
+
+<p><img src="http://media.tumblr.com/tumblr_le1tvwmQGl1qal6x9.png" alt="Link header highlighted"/></p>
+
+
+
+<p>Pretty handy.</p>

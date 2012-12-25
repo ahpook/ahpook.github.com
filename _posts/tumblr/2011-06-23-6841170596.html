@@ -1,0 +1,30 @@
+---
+layout: post
+title: Today's tshark love
+---
+
+<p>I wanted to track down the origin of some bad requests hitting my infrastructure servers but the webserver is fronted by a Netscaler in SNAT mode, so the actual client IP address is not visible. Easy enough to change, I just turned on Client IP at the Netscaler and told it to add an <code>X-Forwarded-For</code> header. Then on the server I ran tshark with <code>-V</code>, which prints out every field on the packets matching the filter. This showed what I wanted but was a little too verbose, and I dimly remembered you could set a field format &#8212; sure enough you string together <code>-e</code> options with the names of the fields you want to see. But what were those names?  Turns out <code>tshark -G</code> prints out a nice table of every field you can use in display filter expressions, so it was easy to grep that and find <code>http.request.uri</code> and <code>http.x_forwarded_for</code> in the output. Now the command:</p>
+
+
+
+<pre><code>tshark -n -i eth0 -s 2000 -R "http.request.uri contains pkgserv" \
+
+-T fields -e http.request.uri -e http.x_forwarded_for port 80 and host 10.1.1.1
+
+</code></pre>
+
+
+
+<p>where 10.1.1.1 is my Netscaler&#8217;s subnet IP (the apparent source address of requests coming through the VIP), produces output like this:</p>
+
+
+
+<pre><code>/pkgserv?cmd=stat&amp;opt=size&amp;opt=mtime&amp;file=ruby-1.8.7_p334-Darwin-10.2.0.tar.bz2     10.1.0.10 
+
+/pkgserv?cmd=stat&amp;opt=size&amp;opt=mtime&amp;file=ruby-1.8.7_p334-Darwin-10.2.0.tar.bz2     10.1.0.11
+
+</code></pre>
+
+
+
+<p>And there are the real IP addresses alongside the URI paths they&#8217;re requesting. Slick!</p>

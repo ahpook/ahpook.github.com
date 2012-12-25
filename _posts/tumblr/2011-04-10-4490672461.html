@@ -1,0 +1,24 @@
+---
+layout: post
+title: 
+---
+
+<embed type="application/x-shockwave-flash" src="http://assets.tumblr.com/swf/audio_player.swf?audio_file=http://www.tumblr.com/audio_file/ahpook/4490672461/tumblr_ljfk7gIGvE1qb72m3&color=FFFFFF" height="27" width="207" quality="best" wmode="opaque"></embed><p>This is called &#8220;Oscillation Automation&#8221;. Why, yes, I did just hack my way around Logic&#8217;s ES1 analog synth for four hours, why do you ask?</p>
+
+
+
+<p>Things I learned:</p>
+
+
+
+<ul><li><p>subtractive synthesis in general is all about chopping off parts of the pure waveforms to leave more interesting sounding harmonics. The main oscillator makes the sound, which then gets combined with the sub-osc and further subtracted both by main resonance/cutoff filter and the LFO. You never <em>hear</em> the LFO itself; it&#8217;s just used to further modulate (chop off) the signal.</p></li>
+
+<li><p>Automation curves are excellent, you can use the disclosure triangles to give each plugin or channel strip setting (or more importantly for this purpose, software synth parameter) its own &#8216;lane&#8217; in the track view, and record your knob twiddling there with the &#8220;latch&#8221; setting. Then go back and twiddle the twiddling with the automation pencil.</p></li>
+
+<li><p>the ES1 is a simple but super Moog emulator - the 24db &#8216;classic&#8217; filter slope gives a very Moog-y sound, and the signal routing is intentionally similar to early monophonic moogs. (But you can actually do polyphony with it, by clicking in the &#8220;Voices&#8221; box in the global section at the bottom and setting it to some value other than 1 or &#8220;Legato&#8221;.</p></li>
+
+<li><p>Seems possible and probably pretty easy to set up my little Korg nanoKontrol fader unit to knob twiddle ES1 settings in realtime - Need to assign Midi CC 1 to the Modulation wheel, then follow P45 in the awesome <a href="http://www.apple.com/logicstudio/resources/">Logic Studio Instruments</a> guide to set up the rest of the useful parameters.</p></li>
+
+<li><p>Speaking of which, that Logic Studio Instruments doc is excellent, especially the intro to synth technology in the Appendix.</p></li>
+
+</ul>

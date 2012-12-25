@@ -1,0 +1,740 @@
+---
+layout: post
+title: Devops Conference Writeups - June 2011
+---
+
+<h1>Conference Writeups - June 2011</h1>
+
+
+
+<h2>Intro</h2>
+
+
+
+<p>When I worked at Transmeta, there was a cultural tradition among the technical staff that, after going to a trade 
+
+conference on the company dime, you owed everyone a writeup of what you&#8217;d seen and learned. The purpose of the writeup 
+
+was twofold: first, to prove that you&#8217;d actually gone to sessions and not spent the previous week drinking beer in Boca 
+
+Raton on the company&#8217;s dime; second, to share any cool new tidbits with your co-workers who weren&#8217;t able to go. There 
+
+were interesting follow-on effects too: knowing you&#8217;d have to do a writeup encouraged taking good notes instead of 
+
+reading your email when your attention started to wander, plus, broadcasting info about new technologies or approaches 
+
+that you found interesting tended to increase the chance they&#8217;d actually get used.</p>
+
+
+
+<p>So it&#8217;s in that spirit I&#8217;ve written up my experiences at Velocity 2011, which I attended Wednesday June 15, and Day 1 
+
+of Devopsdays, which I attended Friday June 17.  Throughout I&#8217;ve flagged actionable stuff to work on or investigate 
+
+further with &#8216;XXX&#8217; tags.</p>
+
+
+
+<h2>Velocity</h2>
+
+
+
+<h3>Keynote</h3>
+
+
+
+<p>First up on Wednesday morning was a keynote by Mark Burgess, the author of cfengine and an important figure in the 
+
+field of systems automation and configuration management. I&#8217;ve heard Mark speak before at conferences and participated 
+
+heavily in cfengine development and bug-fixing for several years so I was excited to hear his current thinking on the 
+
+state of the field. The central metaphor for his talk was <a href="http://velocityconf.com/velocity2011/public/schedule/detail/20370">Change = Mass x 
+
+Velocity</a>. Mass, he explained, could be both helpful 
+
+and harmful &#8212; as muscle (CPU power or money) it could help get work done, but as dead-weight (bureaucracy, policy) can 
+
+slow down change. Velocity in this formula is a measure of how quickly an organization can move to effect change. Mark 
+
+contrasted a hang glider which needs small slight movements in order to remain stable and whose enemy was a sudden 
+
+downdraft, against a fighter jet which remained stable by having enough engine power to fly upside down and turn on a 
+
+penny [sic].  The fighter jet was like a nimble web startup with multiple code deployments per day and the hang glider 
+
+was more like a bank with less tolerance for risk (this seemed to me to strain the metaphor pretty hard). Things took an 
+
+odd turn toward the end of the talk when he introduced his concept of <a href="http://research.iu.hio.no/promises.php">&#8220;promise 
+
+theory&#8221;</a>. Systems that implement promise theory (of which cfengine is the only 
+
+one in existence) provide predictability through autonomically converging on desired system state. Or something. This 
+
+part was a bit hard to follow. My notes say &#8220;knowledge-based systems &#8212; what the hell is he on about?&#8221;  This is a 
+
+problem I&#8217;ve had before with Burgess&#8217; work: it seems very airy and theoretical, disconencted from real 
+
+world problems. The conclusion, I think, was that the future is going to be complex but wonderful.</p>
+
+
+
+<h3>Lightning Talks</h3>
+
+
+
+<p>Lightning talks are brief (5-10 minute) demos of works-in-progress that are interesting and cool but not fully developed 
+
+enough for their own time-slot.</p>
+
+
+
+<p>Up first was the next version of yslow, Yahoo&#8217;s web performance analysis tool. I hadn&#8217;t seen a demo of the tool 
+
+itself before so that was neat, and the next version includes a set of sliders you can use on each metric to determine 
+
+what the best bang for your optimization buck would be.  But the author seemed proudest of your ability to share the 
+
+yslow results for a particular page/site on Facebook, which seemed of dubious utility to me.</p>
+
+
+
+<p>Next was another web page performance test/analysis demo for webpagetest.com, then a live demo showing how you could do 
+
+remote target debugging of javascript running on an iphone/android device with Weinre (pronounced &#8216;Winery&#8217;). The last 
+
+talk was from <a href="http://httparchive.org">HTTP Archive</a> which is now a co-project with the Internet Archive &#8220;Wayback 
+
+Machine&#8221; but which tracks performance, metadata and content types rather than actual website content. The presenter 
+
+showed some interesting trends over time (like diminishing use of Flash in the last six months) and differences between 
+
+the Top 100 websites and Top 1000 (higher-ranked sites tended to be smaller and faster with greater user of CDNs).</p>
+
+
+
+<h3>Exhibit Break</h3>
+
+
+
+<p>The next two talks were more front-end webpage / javascript performance so I stepped out to visit the vendor exhibition 
+
+area. There were lots of companies with &#8216;cloud&#8217; in their names, quite a few external end-to-end monitoring sites like Gomez and
+
+Keynote, and (unsurprisingly) a large O&#8217;Reilly booth with ton of their back-catalogue for perusal on iPads. I complained 
+
+a bit about the old Safari website and the guys insisted that there was an all-new, fast, much more usable revamp of it 
+
+now.  Also of interest is that all new ORA purchases come with a DRM-free digital edition in your choice of format, if 
+
+you pay %110 of the purchase price. This offer is also <em>retroactive</em> if you call customer support, so if you own ORA 
+
+titles and want to transfer them to your iPad, give them a call and they will work it out.</p>
+
+
+
+<p>Tim O&#8217;Reilly gave a brief talk during this time but it was largely content-free so I won&#8217;t summarize here.  &#8220;You guys 
+
+are awesome but I am much smarter than most of you&#8221; was the take-away.</p>
+
+
+
+<h3>MCollective for Monitoring</h3>
+
+
+
+<p>Jeff McCune from Puppet Labs did a live demo of using Mcollective for monitoring. He stepped through the basic 
+
+client-server model of mcollective, how it uses the message queue for each command to: do discovery to find
+
+nodes matching any filter criteria, distribute RPC calls to target hosts, and collect/collate/display the responses. The 
+
+specific case of a monitoring plugin checks to see whether puppet has run recently on all nodes and raises a single 
+
+alert with the hostnames of any nodes with stale state files, no catalog, etc. Then to take it a step further (since 
+
+mcollective only works on hosts which are connected to the bus at the point in time when the message is sent) he showed 
+
+how registration plugins will send periodic messages with metadata about each node, so a receiver can write those 
+
+messages out to files. Another nagios plugin simply checks the contents of the registration directory for stale files to 
+
+find nodes that are no longer connected to the bus. This part of the demo had a little bug because the plugin reported 
+
+the name of the node it ran on, not the stale node names, but the point was still valid &#8212; you need checks, then checks 
+
+to check those. The only thing new for me was the nagios checks, which (XXX) we should implement as we adopt mcollective.</p>
+
+
+
+<h3>Yahoo Frontpage Downtime</h3>
+
+
+
+<p>Jake Loomis, an operations VP at Yahoo, gave a very interesting talk entitled &#8220;Why the Yahoo frontpage went down, and 
+
+why it hadn&#8217;t gone down for a decade before that&#8221;. He described a &#8220;perfect storm&#8221; of a week earlier this year when 
+
+natural disasters, the British royal wedding, and Bin Ladin&#8217;s assassination all happened within a few days of each 
+
+other, driving the Yahoo frontpage traffic to unprecedented levels.  He had five broad categories of tips based on both 
+
+their normal practice for uptime and the lessons learned from this experience.</p>
+
+
+
+<ol><li><p>Design for failure - Yahoo has a system for simplifying the content delivered from highly personalized, localized 
+
+page rendering to a non-signed-in experience and ultimately down to a static page generated from cron that looks 
+
+&#8220;good enough&#8221; to get by but takes almost no effort to serve.</p></li>
+
+<li><p>Build a safe environment for change. Techniques they use are continuous integration, running the exact monitoring/alerting 
+
+in QA as they do in production (XXX&#160;!!), periodically forking production traffic and replaying it against new builds 
+
+to find behavioural changes, and &#8220;Dark Launch&#8221; methodology where they can deploy code but not activate features it 
+
+contains in order to make sure there aren&#8217;t regressions or unexpected side-effects.</p></li>
+
+<li><p>Recover quickly by performing instant rollback. They fail out a datacenter each time they do a large roll so it&#8217;s common, 
+
+well-established practice not a scary one-time thing.  This also lets them drop a datacenter that has new, bad code 
+
+and isolate it quickly.  Global load balancing is key to doing this effectively.</p></li>
+
+<li><p>Monitor everything, and be able to shed features when a hotspot is detected.  XXX The question I have for our service 
+
+is, how <em>can</em> we degrade gracefully? What concurrency knobs exist and how can we manipulate them real-time if a flood 
+
+hits? What are the critical services that should be protected and saved first?</p></li>
+
+<li><p>Have fallback plans and be able to execute them. XXX Jake&#8217;s related point was about developing a method for 
+
+implementing <em>and then following up on</em> changes that result from post-mortem corrective actions. All too often a 
+
+post-mortem provides good root cause analysis and good corrective action but without a common practice of testing 
+
+whether the follow-through completed and actually worked, the same problems can rear up again.</p></li>
+
+</ol><p>I thought this was a great talk; Jake presented well, took tough questions from the audience, and gave me a lot of food 
+
+for thought.</p>
+
+
+
+<h3>Databases in Devops</h3>
+
+
+
+<p>Robert Treat from Omniti has worked as both DBA and sysadmin and currently consults on integrating databases more 
+
+closely with agile operations workflow. This presentation was also of keen interest to me as we&#8217;ve had a proliferation 
+
+in databases in our environment and he very quickly expressed a few of the pain points we&#8217;ve been experiencing. 
+
+Beginning with a definition of devops as a focus on three areas &#8212; config management, monitoring, and software 
+
+deployment &#8212; Robert expressed a familiar view that DBAs tend to think of systems automation as a hassle because 
+
+databases don&#8217;t generally scale horizontally, so there&#8217;s less apparent need for it. There are powerful counterarguments 
+
+to this view though, which express the value proposition in DBA terms:</p>
+
+
+
+<ul><li>if you&#8217;re not scaling horizontally, on one database host there&#8217;s a <em>lot</em> to configure.</li>
+
+<li>change management and auditability is a good thing generally speaking, even if it is only one host.</li>
+
+<li>and anyway, it rarely actually is one host! there are standbys, slaves, and reporting hosts, all of which feed into 
+
+DBA responsibilities.</li>
+
+</ul><p>So the question becomes &#8220;how confident are you that <em>everything</em> on these hosts has been configured correctly?&#8221; And it 
+
+can be a lot easier at that point to gain DBA buy-in for config management automation.</p>
+
+
+
+<p>With respect to monitoring, most of the time we think about system level monitoring like load average, which again can 
+
+be a hard sell to DBAs. But if we can work to make it easy to add graphs and trending for useful database level metrics 
+
+like full table scans (queries per second is not a particularly useful metric).  One other sticking point Robert had 
+
+seen was that &#8220;DBAs can be finicky about data quality&#8221;, and since trending graphs are pretty crude metrics they might 
+
+not want to use them at all; however, trending and correlation are more important than perfection and an imprecise but 
+
+consistent metric can still provide useful data. Baselining, comparison over time, capacity planning and forensics are 
+
+all enabled by having <em>some</em> data to go from.  One thing (XXX) Robert&#8217;s graphs showed that I thought was helpful were 
+
+vertical lines overlaid on the graphs to indicate the timing of code pushes and other change events - making it really 
+
+obvious if there is some correlation. &#8220;Password protected metrics are ridiculous. Expose them to everybody.&#8221;</p>
+
+
+
+<p>Relating to the third the tenet of devops (code deployment), Robert raised some interesting points about the difference 
+
+between ops, development and databases. A database doesn&#8217;t work on a push schedule because the data persists across code 
+
+pushes, and if it goes away it&#8217;s hard to get back &#8212; you can write new code but you can&#8217;t tell your users to re-input 
+
+their information. Code is static (same code runs the same everywhere) but data is dynamic&#8230; and control of the data is 
+
+in the hands of the end users.</p>
+
+
+
+<p>In closing, Robert gave some tips from his experience for success with implementing devops techniques around databases:</p>
+
+
+
+<ul><li>devs should design schema because they best understand the requirements and application flow</li>
+
+<li>schema design should have a style guide just like code (table/column naming conventions)</li>
+
+<li>schema changes should always be migrations so they can be re-applied</li>
+
+<li>pick reasonable, controlled change windows to do schema changes and decouple them from code pushes; there&#8217;s no need to 
+
+have them synchronized since an unused column can just sit there.</li>
+
+</ul><h3>Database Resilience</h3>
+
+
+
+<p>Justin Sheehy, CTO of the company which develops the open-source decentralized key/value store Riak and former architect 
+
+at Akamai, gave an interesting talk on resilience in database systems. Resilience is the ability to degrade gracefully 
+
+rather than &#8220;failing gracefully&#8221;, which Justin thinks is not a desirable goal. The talk was, he said, generally 
+
+applicable to resilient systems but specifically talks about Riak&#8217;s implementation of the principles under discussion.</p>
+
+
+
+<p>As a preface, Justin presented a framework for thinking about failure, called the &#8220;harvest / yield&#8221; model. &#8220;Harvest&#8221; is 
+
+the percentage of the total data set which is currently available; in a sharded database model, the failure of the shard 
+
+affects harvest. Correspondingly, &#8220;Yield&#8221; is the percentage chance of getting a useful reply to any request for data; 
+
+failure of a full-data-set replica with the full data set on it would affect this number.</p>
+
+
+
+<p>(Justin mentioned two things that flew by me here, but I wanted to mention as a reminder to look them up: one was CAP 
+
+Theorem and the other was the Dynamo System from Amazon)</p>
+
+
+
+<p>Justin walked through several failure scenarios and described Riak&#8217;s mechanism for handling them. In general the 
+
+approach they take is &#8220;zooming out&#8221;. That is, take some element that is considered an entire system and zoom out a level 
+
+to turn that system into just a <em>component</em> of a larger system, with the desirable properties of a component such as 
+
+loose coupling between its peers and the ability for the system as a whole to continue functioning in event of its 
+
+failure. Riak does this at each level of its architecture: block storage, storage node, cluster, and site.</p>
+
+
+
+<p>I was super impressed by this and want to explore Riak more to find out if it walks the walk as well as its developer 
+
+talked it up.</p>
+
+
+
+<h3>Puppet Meetup</h3>
+
+
+
+<p>Puppet Labs hosted a talk and get-together after the conclusion of the program on Wednesday. I attended and had good 
+
+conversions with James Turnbull, Jeff McCune, and Luke Kanies about various aspects of Puppet that we&#8217;re using or would 
+
+like to use. Specifically I raised the issue of AAA (Authentication, Authorization, and Accounting) in Mcollective, and 
+
+how integrating role-based authentication against LDAP is the gating factor for rolling Mcollective out to production. 
+
+Jeff agreed to do some research on the matter and get back to us to work together when he&#8217;s out for training at the end 
+
+of the month.</p>
+
+
+
+<p>Thus endeth Wednesday.</p>
+
+
+
+<h2>Devopsdays</h2>
+
+
+
+<p>After a day back in the office Thursday, I headed up to LinkedIn headquarters on Friday for Devopsdays. This is an 
+
+&#8216;unconference&#8217; that&#8217;s only two years old, piggybacking on the presence of a lot of folks in town for Velocity to bring 
+
+together many of the primary implementors of the emerging &#8220;devops&#8221; movement. Devops, as a brief backgrounder, is a 
+
+philisophical approach to operations which attempts to bridge the traditional IT gap between development and operations 
+
+by mixing dev into ops (for instance the concept of treating &#8220;infrastucture as code&#8221; with unit/regression/behaviour 
+
+tests and revision control methodology more commonly associated with software development) and ops into dev (by bringing 
+
+an operational obsession with monitoring, metrics and automation to developers&#8217; workflow).</p>
+
+
+
+<p>Most of the day&#8217;s discussions were in a relaxed panel format, where between 4 and 7 key people in a particular area of 
+
+specialty would take turns responding to questions from a moderator and from the audience. I mostly liked the format 
+
+though I think the moderators were too lax on letting questions wander afield and could have clamped down on the 
+
+more loquatious responders to ensure that everyone got equal time.  But overall it was a welcome change from canned 
+
+presentation format because, concommitant with the open-source nature of the movement itself, it encouraged audience 
+
+participation and in fact removed the traditional barrier between presenter and audience (this was hugely in evidence at 
+
+Velocity, where the stage lighting made it difficult for presenters to see the people asking questions).</p>
+
+
+
+<h3>State of the Devops Union</h3>
+
+
+
+<p>John Willis from DTO Solutions gave the opening talk to sum up the recent, brief history of devops as an identifiable 
+
+trend in IT. He traced its origins from three threads: lean startup, an offshoot of Velocity Conf itself, and Agile 
+
+Infrastructure. The &#8220;lean startup&#8221; concept comes from a book by Steven Gary Blank called &#8220;The Four Steps to the 
+
+Epiphany&#8221; which, filtered through startup culture and codified by Eric Ries, provides a framework for moving quickly, 
+
+deploying frequently (rather than shrink-wrapping software for slow release cycles) and iterating often. From Velocity 
+
+came the widespread awareness that, as John put it, &#8220;being good at ops is REALLY FREAKIN&#8217; IMPORTANT to your business!&#8221; 
+
+Finally, there&#8217;s a strong element of Agile development practice translated into the infrastructure problem space that 
+
+led to common adoption of technologies like Ruby, continuous integration, and Test- and Behaviour-Driven Development.</p>
+
+
+
+<p>John characterized devops as having four main pillars that support it: Culture, Automation, Measurement and Sharing. He 
+
+emphasised the importance of sharing (as in, sharing ideas online and in the conference itself and the open source 
+
+codebase of its main tools) as being critical to continued success.</p>
+
+
+
+<h3>Packaging Panel</h3>
+
+
+
+<p>The first panel discussion was on packaging and its proper role in agile infrastructure, with positions amongst the 
+
+panelists diverse enough to strike some sparks during the conversation. Jordan Sissel wrote 
+
+<a href="https://github.com/jordansissel/fpm">FPM</a> to address the problem of vendor-provided packages doing more stuff than just 
+
+delivering files. FPM will easily build a no-frills RPM, Deb, or solaris package out of a tarball or compilation root 
+
+so you can have native package dependencies but not, say, manage services and add users, which Jordan feels are actions 
+
+in the domain of config management. Josh Timberman from OpsCode took this a step further and prefers to use Chef to 
+
+deliver &#8216;./configure; make; make install&#8217; type instructions. Phil Hollenback from Yahoo has a package-everything type of 
+
+system but is &#8220;over&#8221; it, Noah Campbell is <a href="http://webscalebook.com/">writing a book</a> on using RPM ubiquitously and took 
+
+the (rather extreme) position that everything, even quick-moving config files, can be versioned and delivered by yum.</p>
+
+
+
+<p>Phil had a good closing point, derived from his experience running tens-of-thousands of servers at Y!, which I&#8217;ll just 
+
+quote here as I wrote it down: &#8220;Just do the stupidest, simplest thing possible. Any time somebody tried to do something 
+
+clever, it screwed up.&#8221;</p>
+
+
+
+<p>XXX To investigate: A NetBSD guy gave a quick pop-up shout to their simple cross-platform packaging format (whose name 
+
+escaped my writing down), and someone mentioned Murder for replicating package repositories.</p>
+
+
+
+<h3>Orchestration Panel</h3>
+
+
+
+<p>One of the emerging problems in large-scale distributed systems is that of orchestration: coordinating complicated 
+
+activities across a group of systems. This panel included James Turnbull from puppetlabs talking about Mcollective, Yan 
+
+Pujante who was one of the founders of LinkedIn talking about his Glu framework, John Vincent describing Noah, Alex 
+
+Honor from DTO solutions talking about rundeck, and Michael Hale from Heroku.</p>
+
+
+
+<p>Each tool has its own approach but in general the idea of orchestration involves dynamic topology changes rather than 
+
+changes to an individual host (the term &#8216;dynamic topology&#8217; is from Yan). You might need orchestration if the state you 
+
+care about relies on information outside any given host; another way to put it is that orchestration manipulates live 
+
+state of the service rather than static config.</p>
+
+
+
+<p>Some notable quotes from this discussion:</p>
+
+
+
+<ul><li><p>&#8220;Scaling up is easy, scaling down is hard.&#8221;</p></li>
+
+<li><p>&#8220;Nodes are a dead concept. We need to <em>get over</em> the idea of individual hosts. What matters is the <em>service</em>.&#8221; &#8212; James 
+
+Turnbull</p></li>
+
+<li><p>&#8220;The idempotent model is good practice for orchestration just as it is for configuration management. Check your 
+
+preconditions, execute, check results&#8221; &#8212; Alex Honor (I really liked this concise model of idempotence)</p></li>
+
+</ul><h3>Metrics Panel</h3>
+
+
+
+<p>This panel was primarily concerned with describign the advancing state of the art in the areas of graphing, trending, 
+
+and monitoring. My notes are somewhat spotty here because it was nearing lunchtime but I pulled a couple of interesting 
+
+points out.</p>
+
+
+
+<ul><li><p>Patrick Debois described a very familiar scenario how duplicate parallel monitoring systems can arise, split between 
+
+ops and dev, not through any maliciousness or ill will just &#8220;the way it is&#8221;.  We have this situation now and I don&#8217;t 
+
+know how to resolve it.</p></li>
+
+<li><p>Etsy open-sourced their &#8216;statsd&#8217; package which they use everywhere to monitor &#8220;everything, everywhere, all the time&#8221;. 
+
+John Allspaw and Laurie Denness described the centrality of the tool to their environment: devs instrument their code 
+
+to it, ops builds dashboards and collates the data, support watches metrics like the frequency of forum posts to look 
+
+out for trouble. As soon as new metric shows up via statsd, the backend begins graphing it, without human 
+
+intervention.</p></li>
+
+<li><p>Great audience question: &#8220;What are the key metrics for YOUR service? What&#8217;s the first thing you look at in the morning 
+
+to tell you at a glance whether things are OK or not.  XXX &#8212; I&#8217;m not sure I know what that is for my service!</p></li>
+
+</ul><h3>Lunch Break</h3>
+
+
+
+<p>Just wanted to relate an interesting conversation I had over lunch. I didn&#8217;t write down his name, but someone was 
+
+describing using arduino controls to bring haptic/physical interfaces back to their cloud-based service in order to 
+
+provide a tangible face to it.  For instance he has a large dial hooked up to a microcontroller which you can turn in 
+
+order to bring more capacity online; correspondingly there&#8217;s a 7-segment LED array which displays the current percentage 
+
+of total capacity they&#8217;re running. I thought that was very cool :-)</p>
+
+
+
+<h3>Devops at LinkedIn</h3>
+
+
+
+<p>LinkedIn&#8217;s VP of Operations, perhaps extracting a fee for hosting, got a 15 minute slot after lunch to talk about their 
+
+journey from startup, closely integrated mode, to an intentional split between development and ops organisations, to a 
+
+recent reunification at scale. The talk was well done and their experience was close to what we&#8217;re going through at 
+
+work: my only note says &#8220;Make The Managers Watch This Video!!!&#8221;</p>
+
+
+
+<h3>Patrick Debois on Vagrant</h3>
+
+
+
+<p>Patrick (who incidentally came up with the name &#8216;devops&#8217;) demo&#8217;ed Vagrant, a Ruby tool for quickly spinning up virtual 
+
+machines. It&#8217;s built on top of VirtualBox and uses the concept of &#8216;base boxes&#8217; which provide common, functional OS 
+
+images which you can then customise to meet your local needs. It takes only four commands to get a VM running under 
+
+Vagrant so the barrier to entry is low and this means it can pervade the whole org and toolchain to make it easy for 
+
+(say) devs to build a true multi-tier web/app/db stack on different hosts. The idea is to eliminate the &#8220;But it works on 
+
+my workstation!&#8221; problem, where assumptions about the underlying infrastructure change dramatically from a developer&#8217;s 
+
+sandbox to the production environment. Very cool stuff. XXX &#8212; We should provide vagrant images captured from our 
+
+kickstarted baseline using Patrick&#8217;s &#8220;veewee&#8221; tool to devs, rather than the current error-prone instructions for 
+
+kickstarting VMs in the corp desktop LAN off the Pre-production kickstart server.</p>
+
+
+
+<h3>Agile Professional Services</h3>
+
+
+
+<p>Josh Timberman from Opscode gave a short talk on how the team of Chef professional services consultants he manages for 
+
+Opscode implement agile practise in their life. He gave a brief introduction to Agile as it&#8217;s evolved for software 
+
+development first, which I found pretty interesting but won&#8217;t recount here. If you&#8217;re interested follow along the <a href="http://en.wikipedia.org/wiki/Agile_software_development">Agile 
+
+software development</a> wikipedia page as that covers all the 
+
+bases (his slides even included the graphics from that page).</p>
+
+
+
+<h3>The role of QA in Devops</h3>
+
+
+
+<p>Another panel discussion, for which my notes say &#8220;Lengthy and not highly interesting talk about whether and how much QA 
+
+should exist&#8221;. I did transcribe a money quote from Stephen Nelson-Smith:</p>
+
+
+
+<p>Most people&#8217;s conception of development is fundamentally flawed. They have this idea that developers inherently write 
+
+  bad code and need to be found out. Further, people think that operations can&#8217;t be trusted to do anything right. This 
+
+  needs to change.</p>
+
+
+
+<p>One other note from this talk: one of the panelists was a founder of &#8216;blitz.io&#8217; which he described as &#8216;a site for 
+
+gamification of capacity planning&#8217;.  This was baffling at the time but, looking at it now, it does indeed turn capacity 
+
+planning and load testing into a sort of web-based video game. Bizarre.</p>
+
+
+
+<h3>Ignite talks</h3>
+
+
+
+<p>The day shifted gears and people queued up to give Ignite talks, which are driven by their slides auto-advancing every 
+
+15 seconds. Jordan Sissel demo&#8217;ed a very cool project called &#8220;logstash&#8221; which provides scalable centralized logging. 
+
+Dominica DeGrandis talked about applying statistical analysis to downtime. She uses and teaches Kanban to study the 
+
+variability around the events that make your uptime unpredictable and analyze them using statistical methods. This 
+
+seemed very helpful and (XXX) worth further investigation - <a href="http://t.co/LakijeZ">http://t.co/LakijeZ</a> .  The best talk however was from 
+
+Michael Nygard, who presented a case study on a project he&#8217;d worked on which went bad. Hopefully this video will be up 
+
+online soon, but let me share the main take-away from it, which was a metric they used while trying to rescue an 
+
+abortive launch of their site: MTBHD, or the Mean Time Between Horrifying Discoveries.</p>
+
+
+
+<h3>Wrap-Up</h3>
+
+
+
+<p>The day&#8217;s final panel discussion was on &#8220;Escaping the devops echo chamber&#8221; which, as someone adroitly pointed out, 
+
+actually ended up reinforcing the echo chamber effect; it was introspective to the point of navel-gazing so I didn&#8217;t 
+
+transcribe any of it. Finally the planning began for Saturday&#8217;s Open Spaces sessions, where the conference attendees 
+
+sort of self-organize into working groups about topics that enough people found interesting to have a break-out session 
+
+about.  Puppet Camp worked like this too and they can be very good, kind of like an official &#8220;hallway track&#8221;.  I 
+
+couldn&#8217;t be there Saturday so I didn&#8217;t participate here but the session write-ups should be up soon.</p>
+
+
+
+<h1>Conclusion</h1>
+
+
+
+<p>The conferences, especially devopsdays, presented tons of material compressed into a very short amount of time. There&#8217;s 
+
+a lot going on in the infrastructure automation space right now, and on some level it&#8217;s quite encouraging to see all 
+
+this attention focused on provisioning automation and configuration management. There are a number of specific changes 
+
+I&#8217;d like to start looking at, based on things I learned about:</p>
+
+
+
+<ul><li>Implement nagios monitoring for mcollective</li>
+
+<li>Tie monitoring alerting in QA and production closer together</li>
+
+<li>Explore how our service can degrade gracefully in overwhelming load</li>
+
+<li>Build process to follow up on corrective actions that come out of post-mortems</li>
+
+<li>Overlay the timing of code rolls and other events on trending graphs so it&#8217;s easy to answer the question &#8220;What changed 
+
+right before this huge spike in service time?&#8221;</li>
+
+<li>Track down and investigate the NetBSD dude&#8217;s OS-agnostic package manager</li>
+
+<li>Figure out the answer to the question &#8220;What&#8217;s the key metric for your overall service?&#8221; If we built a high level 
+
+red/green dashboard, what two or three graphs would it contain?</li>
+
+<li>Capture a freshly kickstarted Linux host into virtualbox format for use by Vagrant</li>
+
+<li>Look at Kanban for statistical analysis of downtime causes</li>
+
+</ul><p>I hope to continue my involvement with this community as it&#8217;s helped me a lot with specific technical problems I&#8217;ve had 
+
+in my job; contributing back (with code patches, mailing list participation and posting this writeup) is a way to pay it 
+
+back for the time I&#8217;ve saved in my own work and money I&#8217;ve saved the company by implementing better practice, reducing 
+
+errors and increasing predictability.</p>
+
+
+
+<h1>UPDATES from around the Net</h1>
+
+
+
+<ul><li>The Netbsd package is called <a href="http://www.netbsd.org/docs/pkgsrc/">pkgsrc</a> (thx Jordan)</li>
+
+<li>Joshua Timberman <a href="https://twitter.com/#!/jtimberman/status/82999161779269632">writes</a>: &#8220;To be clear, I compile from source as the simplest stupidest thing that could work w/o building pkg repos for everything. / I&#8217;m not interested in duplicating the functionality [of?] distros for things that might be packaged.&#8221;</li>
+
+</ul>
