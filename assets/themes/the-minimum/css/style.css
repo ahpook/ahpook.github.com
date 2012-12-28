@@ -2,6 +2,8 @@
 
 @import "module.css";
 
+@import "fonts.css";
+
 @import "syntaxhighlighter.css";
 
 @import "helper.css";
@@ -24,7 +26,7 @@ Calculation should be done via  http://j.mp/rNg5uA
 No styleguide reference.
 */
 body {
-  font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, "MS PGothic", Osaka, Sans-Serif;
+  font-family: AlegreyaRegular, Garamond, 'Hoefler Text', 'Times New Roman', Times, serif;
   font-size: 1em;
   line-height: 1.625em;
 }
@@ -51,30 +53,34 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: junctionregularRegular, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, "MS PGothic", Osaka, Sans-Serif;
+  font-family: AlegreyaBlack, Garamond, 'Times New Roman', Times, serif;
   font-weight: bold;
 }
-h1, .h1 {
+h1,
+.h1 {
   font-size: 42px;
   line-height: 52px;
   margin-top: 52px;
   margin-bottom: 26px;
-  letter-spacing: -1px;
+  letter-spacing: 1px;
 }
-h2, .h2 {
+h2,
+.h2 {
   font-size: 42px;
   line-height: 52px;
   margin-top: 52px;
   margin-bottom: 26px;
-  letter-spacing: -1px;
+  letter-spacing: 1px;
 }
-h3, .h3 {
+h3,
+.h3 {
   font-size: 26px;
   line-height: 26px;
   margin-top: 26px;
   margin-bottom: 26px;
 }
-h4, .h4 {
+h4,
+.h4 {
   font-size: 20px;
   line-height: 26px;
   margin-top: 26px;
@@ -88,7 +94,9 @@ img {
   margin-top: 0;
   margin-bottom: 1.625em;
 }
-small, .small, aside {
+small,
+.small,
+aside {
   font-size: 0.75em;
 }
 .font-size-default {
@@ -131,17 +139,6 @@ No styleguide reference.
 @green:     #859900;
 
 */
-/* Junction Font
- * http://www.theleagueofmoveabletype.com/
- * Using for Logo and headers
-*/
-@font-face {
-  font-family: 'junctionregularRegular';
-  src: url('/assets/themes/the-minimum/font/Junction-webfont.eot');
-  src: url('/assets/themes/the-minimum/font/Junction-webfont.eot?#iefix') format('embedded-opentype'), url('/assets/themes/the-minimum/font/Junction-webfont.woff') format('woff'), url('/assets/themes/the-minimum/font/Junction-webfont.ttf') format('truetype'), url('/assets/themes/the-minimum/font/Junction-webfont.svg#junctionregularRegular') format('svg');
-  font-weight: normal !important;
-  font-style: normal;
-}
 /*
 LESS helper
 */
@@ -200,7 +197,7 @@ pre {
   color: #f2f2f2;
   background-color: #393939;
   border: 1px solid #393939;
-  font-family: "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+  font-family: SourceCodeProRegular, Menlo, Consolas, 'Lucida Console', 'Bitstream Vera Sans Mono', Courier, monospace;
   margin-left: 0;
   margin-right: 0;
   padding: 1.625em;
@@ -213,8 +210,7 @@ pre {
 /* HEADER
 --------------------------------------------------------------------------------- */
 .the-header .logo {
-  font-family: junctionregularRegular, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, "MS PGothic", Osaka, Sans-Serif;
-  
+  font-family: AlegreyaBlack, Garamond, 'Times New Roman', Times, serif;
   margin: 0;
 }
 .the-header .logo a:visited {
@@ -298,7 +294,9 @@ pre {
   margin-left: 0;
   margin-right: 0;
 }
-.unit-article ul, .unit-article ol, .unit-article dl {
+.unit-article ul,
+.unit-article ol,
+.unit-article dl {
   padding-left: 0;
 }
 .unit-article ul {
@@ -343,7 +341,8 @@ pre {
   margin-left: 0;
   margin-right: 0;
 }
-.unit-article p code, .unit-article li code {
+.unit-article p code,
+.unit-article li code {
   margin: 0 2px;
   padding: 2px 5px;
   white-space: nowrap;
@@ -359,7 +358,6 @@ pre {
 .unit-article img {
   display: block;
   margin-left: auto;
-  margin-left: auto;
 }
 .unit-article img.left {
   margin-right: 16px;
@@ -373,13 +371,16 @@ pre {
 .unit-article .list-linear .list-head {
   margin-right: 4px;
 }
-.unit-article .list-category a, .unit-article .list-tag a {
+.unit-article .list-category a,
+.unit-article .list-tag a {
   border: 0 none;
 }
-.unit-article .list-category a:hover span, .unit-article .list-tag a:hover span {
+.unit-article .list-category a:hover span,
+.unit-article .list-tag a:hover span {
   background-color: #f99157;
 }
-.unit-article .list-category span, .unit-article .list-tag span {
+.unit-article .list-category span,
+.unit-article .list-tag span {
   background-color: #e25608;
   padding: 1px 5px;
   -webkit-border-radius: 10px;
@@ -672,7 +673,7 @@ pre {
   .the-header .logo a {
     font-size: 42px;
     line-height: 52px;
-    letter-spacing: -1px;
+    letter-spacing: 2px;
   }
   .the-header .nav-global {
     margin-top: 1.625em;
@@ -812,7 +813,9 @@ pre {
   .the-header .nav-global {
     width: 43.125em;
   }
-  .unit-article .unit-head-inner, .unit-article .entry-content, .unit-article .misc-content {
+  .unit-article .unit-head-inner,
+  .unit-article .entry-content,
+  .unit-article .misc-content {
     width: 43.125em;
   }
   .unit-article .unit-foot-inner {
