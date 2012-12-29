@@ -53,7 +53,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: AlegreyaBlack, Garamond, 'Times New Roman', Times, serif;
+  font-family: AlegreyaBold, Garamond, 'Times New Roman', Times, serif;
   font-weight: bold;
 }
 h1,
@@ -62,7 +62,7 @@ h1,
   line-height: 52px;
   margin-top: 52px;
   margin-bottom: 26px;
-  letter-spacing: 1px;
+  letter-spacing: normal;
 }
 h2,
 .h2 {
@@ -70,7 +70,7 @@ h2,
   line-height: 52px;
   margin-top: 52px;
   margin-bottom: 26px;
-  letter-spacing: 1px;
+  letter-spacing: normal;
 }
 h3,
 .h3 {
@@ -210,7 +210,7 @@ pre {
 /* HEADER
 --------------------------------------------------------------------------------- */
 .the-header .logo {
-  font-family: AlegreyaBlack, Garamond, 'Times New Roman', Times, serif;
+  font-family: AlegreyaBold, Garamond, 'Times New Roman', Times, serif;
   margin: 0;
 }
 .the-header .logo a:visited {
@@ -673,7 +673,7 @@ pre {
   .the-header .logo a {
     font-size: 42px;
     line-height: 52px;
-    letter-spacing: 2px;
+    letter-spacing: normal;
   }
   .the-header .nav-global {
     margin-top: 1.625em;
