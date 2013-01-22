@@ -1,3 +1,10 @@
+--
+layout: post
+title: "Not Clones"
+description: ""
+category: 
+tags: [kid]
+---
 I had a funny conversation with G tonight.
 
 He had just bought Scribblenauts on his iPod with the $5.
