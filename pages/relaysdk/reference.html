@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relay SDK Reference Docs &#8212; Relay.sh SDK  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="License" href="license.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="relay-sdk-reference-docs">
+<h1>Relay SDK Reference Docs<a class="headerlink" href="#relay-sdk-reference-docs" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#module-nebula_sdk.client" id="id1">Client</a></p></li>
+<li><p><a class="reference internal" href="#module-nebula_sdk.events" id="id2">Events</a></p></li>
+<li><p><a class="reference internal" href="#module-nebula_sdk.interface" id="id3">Interface</a></p></li>
+<li><p><a class="reference internal" href="#module-nebula_sdk.outputs" id="id4">Outputs</a></p></li>
+<li><p><a class="reference internal" href="#module-nebula_sdk.webhook" id="id5">Webhook</a></p></li>
+</ul>
+</div>
+<p>These are auto-generated docs for the current version of the Python SDK</p>
+<hr class="docutils" />
+<div class="section" id="module-nebula_sdk.client">
+<span id="client"></span><h2>Client<a class="headerlink" href="#module-nebula_sdk.client" title="Permalink to this headline">¶</a></h2>
+<p>Internal class for client sessions to interact with the Relay metadata service</p>
+<dl class="py class">
+<dt id="nebula_sdk.client.MetadataAPIAdapter">
+<em class="property">class </em><code class="sig-prename descclassname">nebula_sdk.client.</code><code class="sig-name descname">MetadataAPIAdapter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">base_url</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nebula_sdk.client.MetadataAPIAdapter" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="nebula_sdk.client.MetadataAPIAdapter.send">
+<code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">stream</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verify</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">cert</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">proxies</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nebula_sdk.client.MetadataAPIAdapter.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends PreparedRequest object. Returns Response object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PreparedRequest</span></code>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">PreparedRequest</span></code> being sent.</p></li>
+<li><p><strong>stream</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – (optional) Whether to stream the request content.</p></li>
+<li><p><strong>timeout</strong> (<em>float</em><em> or </em><em>tuple</em><em> or </em><em>urllib3 Timeout object</em>) – (optional) How long to wait for the server to send
+data before giving up, as a float, or a <span class="xref std std-ref">(connect timeout,
+read timeout)</span> tuple.</p></li>
+<li><p><strong>verify</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – (optional) Either a boolean, in which case it controls whether
+we verify the server’s TLS certificate, or a string, in which case it
+must be a path to a CA bundle to use</p></li>
+<li><p><strong>cert</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Container</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – (optional) Any user-provided SSL certificate to be trusted.</p></li>
+<li><p><strong>proxies</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]) – (optional) The proxies dictionary to apply to the request.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>requests.Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="nebula_sdk.client.new_session">
+<code class="sig-prename descclassname">nebula_sdk.client.</code><code class="sig-name descname">new_session</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">api_url</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nebula_sdk.client.new_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new client session to the metadata API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>api_url</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – host and port to communicate with the api server (optional)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a Session object connected to the api server</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="module-nebula_sdk.events">
+<span id="events"></span><h2>Events<a class="headerlink" href="#module-nebula_sdk.events" title="Permalink to this headline">¶</a></h2>
+<p>Generating events for the service to act on</p>
+<dl class="py class">
+<dt id="nebula_sdk.events.Events">
+<em class="property">class </em><code class="sig-prename descclassname">nebula_sdk.events.</code><code class="sig-name descname">Events</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">client</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nebula_sdk.events.Events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for generating event payloads to the service API</p>
+<dl class="py method">
+<dt id="nebula_sdk.events.Events.emit">
+<code class="sig-name descname">emit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nebula_sdk.events.Events.emit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and send an event to the service.</p>
+<p>Use this from a Trigger handler to start the workflow
+associated with the trigger.</p>
+<p>Accepts a Mapping of data fields that will bind
+names of workflow parameters to values from the
+request payload that came in to the Trigger handler</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="module-nebula_sdk.interface">
+<span id="interface"></span><h2>Interface<a class="headerlink" href="#module-nebula_sdk.interface" title="Permalink to this headline">¶</a></h2>
+<p>The main class for a client to connect to the Relay service API</p>
+<dl class="py class">
+<dt id="nebula_sdk.interface.Interface">
+<em class="property">class </em><code class="sig-prename descclassname">nebula_sdk.interface.</code><code class="sig-name descname">Interface</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">api_url</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nebula_sdk.interface.Interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>An Interface object connects client code to the metadata service.</p>
+<dl class="py method">
+<dt id="nebula_sdk.interface.Interface.events">
+<em class="property">property </em><code class="sig-name descname">events</code><a class="headerlink" href="#nebula_sdk.interface.Interface.events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor for Events methods</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nebula_sdk.events.Events" title="nebula_sdk.events.Events"><code class="xref py py-class docutils literal notranslate"><span class="pre">Events</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nebula_sdk.interface.Interface.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">q</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nebula_sdk.interface.Interface.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve values from the metadata service</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>q</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dynamic</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – A particular parameter to query the value of.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The value of the queried parameter as a string.
+If no query was provided, all available parameters will be
+returned in a json map</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nebula_sdk.interface.Interface.outputs">
+<em class="property">property </em><code class="sig-name descname">outputs</code><a class="headerlink" href="#nebula_sdk.interface.Interface.outputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor for Outputs methods</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nebula_sdk.outputs.Outputs" title="nebula_sdk.outputs.Outputs"><code class="xref py py-class docutils literal notranslate"><span class="pre">Outputs</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="nebula_sdk.interface.UnresolvableException">
+<em class="property">exception </em><code class="sig-prename descclassname">nebula_sdk.interface.</code><code class="sig-name descname">UnresolvableException</code><a class="headerlink" href="#nebula_sdk.interface.UnresolvableException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="module-nebula_sdk.outputs">
+<span id="outputs"></span><h2>Outputs<a class="headerlink" href="#module-nebula_sdk.outputs" title="Permalink to this headline">¶</a></h2>
+<p>Outputs allow a step to write data that will be available for later steps</p>
+<dl class="py class">
+<dt id="nebula_sdk.outputs.Outputs">
+<em class="property">class </em><code class="sig-prename descclassname">nebula_sdk.outputs.</code><code class="sig-name descname">Outputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">client</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nebula_sdk.outputs.Outputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use Outputs to write keys to the metadata service that later steps can retrieve</p>
+<dl class="py method">
+<dt id="nebula_sdk.outputs.Outputs.set">
+<code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nebula_sdk.outputs.Outputs.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set writes a value of a given name to the service</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – a string containing the key name to write</p></li>
+<li><p><strong>value</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – the value of the key to be written. Can
+be any data type that can serialize to JSON</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="module-nebula_sdk.webhook">
+<span id="webhook"></span><h2>Webhook<a class="headerlink" href="#module-nebula_sdk.webhook" title="Permalink to this headline">¶</a></h2>
+<p>A helper class for building Trigger webhooks for Relay</p>
+<dl class="py exception">
+<dt id="nebula_sdk.webhook.PortParseError">
+<em class="property">exception </em><code class="sig-prename descclassname">nebula_sdk.webhook.</code><code class="sig-name descname">PortParseError</code><a class="headerlink" href="#nebula_sdk.webhook.PortParseError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="nebula_sdk.webhook.WebhookServer">
+<em class="property">class </em><code class="sig-prename descclassname">nebula_sdk.webhook.</code><code class="sig-name descname">WebhookServer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">app</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">termination_policy</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nebula_sdk.webhook.WebhookServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate a WebhookServer class to handle incoming webhook payloads</p>
+<p>Trigger webhook handlers should expect POST requests to the top level (‘/’)</p>
+<p>They should use the serve_forever() startup method, because Relay
+will manage the lifecycle of the trigger container.</p>
+<p>They should not expect any state to be preserved between requests,
+nor rely on any persistence on the local container filesystem.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Relay.sh SDK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Relay SDK Reference Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-nebula_sdk.client">Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-nebula_sdk.events">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-nebula_sdk.interface">Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-nebula_sdk.outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-nebula_sdk.webhook">Webhook</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="license.html" title="previous chapter">License</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Puppet Inc.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/reference.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
